@@ -1,60 +1,397 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Video-SR1</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f7f7f7;
-      color: #222;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 24px;
-      box-sizing: border-box;
-    }
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Video-SR1: Reinforcement Learning with Self-Rewarding Video-Language Reasoning"
+    />
 
-    main {
-      max-width: 800px;
-      background: #fff;
-      padding: 48px 36px;
-      border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    }
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Video-SR1: Reinforcement Learning with Self-Rewarding Video-Language Reasoning
+    </title>
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      line-height: 1.3;
-    }
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ROVER" />
 
-    p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin: 12px 0;
-    }
 
-    .status {
-      margin-top: 28px;
-      color: #666;
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <h1>Video-SR1</h1>
-    <p>
-      This is the anonymous home page for the paper
-      <strong>Video-SR1: Reinforcement Learning with Self-Rewarding Video-Language Reasoning</strong>.
-    </p>
-    <p class="status">
-      This webpage is currently in development and will be created soon.
-    </p>
-  </main>
-</body>
+    <link
+      href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css" />
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+    />
+    <link rel="stylesheet" href="./static/css/index.css" />
+    <link rel="icon" href="./static/images/favicon.svg" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <style>
+      * {
+        font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 15px;
+        background: white;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      }
+      
+      th {
+        border-top: 1.5px solid #000;
+        border-bottom: 1.5px solid #000;
+        padding: 12px 24px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 16px;
+      }
+      
+      td {
+        padding: 12px 24px;
+      }
+      
+      tr:last-child td {
+        border-bottom: 1.5px solid #000;
+      }
+      
+      tr:hover {
+        background-color: #f5f5f5;
+      }
+      
+      .method-group {
+        border-bottom: 1.5px solid #000;
+      }
+      
+      .dataset-name, .method-name {
+        font-weight: 500;
+      }
+      
+      .citation {
+        color: #FF69B4;
+      }
+      
+      .metric {
+        text-align: right;
+        font-feature-settings: "tnum";
+        font-variant-numeric: tabular-nums;
+      }
+      
+      .bold-metric {
+        font-weight: bold;
+      }
+      
+      .year {
+        color: #666;
+      }
+      
+      .sub-method {
+        padding-left: 24px;
+      }
+
+      .demo-container {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .task-select {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid #000;
+        background: white;
+        appearance: none;
+        position: relative;
+        cursor: pointer;
+        box-shadow: 2px 2px 0px 0px #000;
+      }
+      
+      .status-container {
+        flex: 1;
+        border: 2px solid #000;
+        display: flex;
+        overflow: hidden;
+      }
+      
+      .status {
+        flex: 1;
+        padding: 12px;
+        text-align: center;
+      }
+      
+      .success {
+        background: #000;
+        color: white;
+      }
+      
+      .fail {
+        background: white;
+        color: black;
+      }
+      
+      .video-area {
+        width: 80%;
+        margin: 0 auto;
+        background: #e0e0e0;
+        border: 2px solid #000;
+        position: relative;
+      }
+      .video-overlay {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      .audio-button {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .audio-progress {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .audio-progress-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: width 0.1s linear;
+      }
+
+      .audio-controls {
+        display: inline-flex;
+        gap: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">
+                Video-SR1: Reinforcement Learning with 
+                Self-Rewarding Video-Language Reasoning
+              </h1>
+
+              <br />
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a
+                      href="https://github.com/video-sr1/code/"
+                      target="_blank"
+                      class="external-link button is-normal is-rounded is-dark"
+                    >
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code & Data</span>
+                    </a>
+                  </span>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              Vision-language models increasingly support video, but reinforcement learning (RL) for video reasoning still relies largely on sparse final-answer rewards. Such supervision is poorly suited for long video-reasoning traces, where correct observations and localized perceptual or temporal errors may coexist within the same response. We introduce Video-SR1, a self-rewarding framework for dense RL post-training of video-language models. Its core algorithm, Group and Sentence Relative Policy Optimization (GSRPO), uses the policy to apply self-rewards across each sentence in its own reasoning trace, aligns semantically corresponding sentences across responses, and performs group-relative credit assignment at the sentence level. Further, GSRPO complements the self-rewards with a counterfactual temporal-sensitivity reward that encourages reasoning to respond to changes in video frame order. Across six diverse video-reasoning benchmarks, Video-SR1 significantly improves accuracy, sample efficiency, and cross-domain transfer relative to strong baselines in settings with and without the sparse ground-truth answer reward included during RL. Error analyses and ablations reveal two complementary factors underlying Video-SR1's gains: the temporal-sensitivity reward promotes reasoning that responds to the video's spatiotemporal structure, while local self-rewards ensure the temporally-sensitive reasoning remains accurate and grounded in the visual evidence. Together, our results suggest that a central limitation of RL for video reasoning is not only reward quality, but reward resolution: assigning credit at the level of intermediate claims can make each rollout more informative and provide a stronger training signal for grounded multimodal reasoning.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width has-text-justified">
+            <h2 class="title is-3 has-text-centered">Method Overview</h2>
+
+            <h3 class="title is-4">Group and Sentence Relative Policy Optimization </h3>
+            <div class="content has-text-justified">
+              <p>
+                We introduce Video-SR1, a self-rewarding framework for video-language reasoning that provides dense supervision without training a separate value model. Its core algorithm, Group and Sentence Relative Policy Optimization (GSRPO), leverages the policy to assess the local correctness of each sentence in the reasoning trace with respect to the video, question, and preceding trace. Instead of assigning one reward per response, GSRPO compares semantically corresponding sentences across the group, normalizes their self-rewards locally, and applies each advantage only to that sentence’s tokens. Thus, GSRPO preserves the critic-free, group-relative structure of GRPO, while transforming one sparse learning signal per response into a sequence of localized learning signals.
+                <br><br>
+                Finally, during RL, we complement the self-reward with a temporal-sensitivity reward. For each video, we shuffle its frames and measure how much the policy's sentence-level reasoning changes relative to the original video. We reward sensitivity up to a fixed margin, discouraging reasoning that is invariant to temporal order without encouraging arbitrary instability. Together, the temporal-sensitivity reward encourages reasoning that responds to the video's spatiotemporal structure, while the local self-rewards ensure that this sensitivity remains accurate and grounded in the visual evidence.
+              </p>
+            </div>
+            <div class="content has-text-centered">
+              <div class="content has-text-centered">
+              <img
+                src="./static/images/fig_method.png"
+                class="inline-figure-six"
+                height="auto"
+                width="1200px"
+              />
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width has-text-justified">
+            <h2 class="title is-3 has-text-centered">Model Overview</h2>
+
+            <h3 class="title is-4">Video-SR1 Self-Rewarding Reasoning </h3>
+            <div class="content has-text-justified">
+              <p>
+                After producing its reasoning trace, Video-SR1 reflects on each sentence in that trace. For every sentence, it evaluates whether the statement is supported by the video, temporally consistent with the observed events, logically consistent with the preceding reasoning, and relevant to the query. 
+                The model then predicts a binary sentence reward.
+              </p>
+            </div>
+            <div class="content has-text-centered">
+              <div class="content has-text-centered">
+              <img
+                src="./static/images/fig_model.png"
+                class="inline-figure-six"
+                height="auto"
+                width="1200px"
+              />
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="hr"></div>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width has-text-justified">
+            <h2 class="title is-3 has-text-centered">Experiments</h2>
+
+
+            <h3 class="title is-4">RL without ground-truth rewards</h3>
+
+            <div class="content has-text-justified">
+              <p>
+               We first exclude all ground-truth signal about final-answer correctness during RL. GRPO, Video-R1, and Vision-SR1 are therefore omitted because they require answer rewards. For benchmarks with training splits (VLM4D, VideoEspresso, NExT-QA, and STAR), all models use half of the in-domain training examples for warm-starting and the remaining half for RL. For Video-SR1, the warm-start data is converted into the synthetic self-assessment examples. VL-Calibration and UMPIRE instead receive standard question--answer supervised fine-tuning. RL then operates on the held-out training videos without access to their ground-truth answers. MVBench and Video-MME do not provide training splits and are therefore used to test cross-domain transfer, where all training examples come from combining all the other training datasets. During RL, all models are limited to G=16 responses with the same token budgets.
+<br><br>
+Video-SR1 improves accuracy, sample efficiency, and cross-domain transfer using only self-derived rewards.
+Video-SR1 shows consistent gains over all baselines across all six benchmarks. On the in-domain evaluations, Video-SR1 reaches 67.1% on VLM4D, 49.5% on VideoEspresso, 87.9% on NExT-QA, and 80.6% on STAR, improving over the strongest baseline by 4.5, 3.1, 2.3, and 1.9 percentage points, respectively. The gains persist under cross-domain transfer: Video-SR1 reaches 86.8% on Video-MME-Short and 80.4% on MVBench, outperforming the strongest baseline by 3.5 and 2.6 points. This cross-domain transfer provides evidence that Video-SR1's sentence-level self-rewarding and temporal grounding improve generalization beyond the post-training distribution.
+              </p>
+            </div>
+            <div class="content has-text-centered">
+              <img
+                src="./static/images/res_fig1.png"
+                class="inline-figure-six"
+                height="auto"
+                width="1200px"
+              />
+            </div>>
+          
+            <h3 class="title is-4">RL with ground-truth rewards</h3>
+
+            <div class="content has-text-justified">
+              <p>
+We next restore the sparse ground-truth answer reward. This enables comparison with methods that depend on this reward (GRPO, Video-R1, and Vision-SR1), while testing whether Video-SR1 remains strong when final-answer supervision is already available.
+<br><br>
+Video-SR1 is boosted by the sparse ground-truth rewards, further outperforming all baselines on accuracy, sample efficiency, and cross-domain transfer.
+Video-SR1 again achieves the highest accuracy across all six benchmarks. It reaches 70.8% on VLM4D, 52.1% on VideoEspresso, 89.2% on NExT-QA, and 82.2% on STAR, exceeding the strongest baseline on each benchmark by 4.5, 3.3, 2.0, and 2.9 percentage points, respectively. The same advantage transfers out of domain: Video-SR1 obtains 87.2% on Video-MME-Short and 81.5% on MVBench, gains of 3.1 and 2.5 points over the strongest competing method. Across all six benchmarks, Video-SR1 significantly improves on the strongest baseline. Its learning curves also show faster improvement, surpassing the best final baseline performance after substantially fewer RL steps. These results indicate that sparse and dense rewards resolve different parts of the credit-assignment problem: the answer reward identifies whether the trajectory ultimately succeeds, while GSRPO determines which intermediate claims within that trajectory should be reinforced or suppressed.     
+</p>
+            </div>
+            <div class="content has-text-centered">
+              <img
+                src="./static/images/res_fig2.png"
+                class="inline-figure-six"
+              />
+            </div>
+
+            <h3 class="title is-4">True Task Accuracy versus Perceived Reasoning Accuracy</h3>
+            <div class="content has-text-justified">
+              <p>
+We test whether the model's own estimate of reasoning quality remains calibrated to actual task success during RL. We define perceived reasoning accuracy as the mean sentence-level self-reward assigned to a generated trace and compare it with true final-answer accuracy on each benchmark.
+<br><br>
+Video-SR1's perceived reasoning quality tracks true task performance more closely than competing self-derived rewards.
+As shown in part (a) below, the gap between perceived and true accuracy is consistently smaller for Video-SR1 across benchmarks. In contrast, VL-Calibration and UMPIRE show more vulnerability to reward-hacking behavior, where high confidence is assigned to reasoning traces even when final-answer accuracy is substantially lower. This distinction is important for self-rewarded RL: a reward that becomes increasingly detached from true correctness can reinforce precisely the behaviors that make the model appear confident without making it more accurate. However, we see improvement with VL-Calibration when ground-truth rewards are included, as the method explicitly uses these rewards to improve the calibration of the self-derived confidence estimates.
+% When ground-truth answer rewards are added, VL-Calibration becomes substantially better calibrated, consistent with external correctness supervision helping constrain its confidence estimates; 
+Nevertheless, Video-SR1 retains the closest correspondence between perceived reasoning quality and actual task success.
+<br><br>
+Part (b)  examines how this relationship evolves during optimization. Video-SR1's ratio of true accuracy to perceived reasoning accuracy remains nearly constant throughout RL, whereas the ratio declines for the competing self-derived rewards. The latter pattern indicates growing overconfidence: the reward signal continues to increase even when true task performance does not improve proportionally. In contrast, the relative stability of Video-SR1 suggests that optimizing its self-reward does not rapidly decouple the reward from the behavior it is intended to measure. This is especially important in the setting without ground-truth answer rewards, where there is otherwise no external signal during RL to correct reward miscalibration. Including the ground-truth reward again substantially improves VL-Calibration, but Video-SR1 remains the most stable.
+<br><br>
+Finally, part (c) compares perceived reasoning accuracy for responses with correct versus incorrect final answers. Video-SR1 assigns substantially different self-rewards to successful and unsuccessful traces, while the distributions for baselines overlap strongly. This suggests Video-SR1's local assessments are more discriminative of whether the underlying reasoning leads to a correct answer. Together, these results indicate that Video-SR1's self-rewards provide a substantially more stable and informative training signal than baselines.
+            </div>
+            <div class="content has-text-centered">
+              <img
+                src="./static/images/res_fig3.png"
+                class="inline-figure-six"
+              />
+            </div>
+
+            <h3 class="title is-4">Reasoning Error Types</h3>
+            <div class="content has-text-justified">
+              <p>
+We next test whether the improvements in accuracy correspond to improvements in the reasoning traces themselves. We manually inspect 100 randomly sampled responses per model and benchmark and categorize failures as total hallucination, perceptual error, reasoning error, or other. Part (a) of the below figure shows that Video-SR1 reduces all error types relative to the baselines. Video-SR1 lowers the frequency of all major error categories. This is consistent with the intended division of labor between its two reward components: the sentence-level self-reward penalizes unsupported local claims, while the temporal-sensitivity objective encourages the policy to condition its reasoning on the ordered visual evidence rather than on language priors or static appearance alone.
+<br><br>
+A particularly revealing failure mode appears when the final answer is correct despite flawed intermediate reasoning. As shown in the middle panel of part (a) of the figure below, such traces remain common for the baselines: a response can arrive at the correct answer while still containing one or more incorrect intermediate statements. Under a sparse answer-level reward, these errors are invisible to the optimizer because the entire trajectory receives positive credit. Video-SR1 substantially reduces these ``right answer, wrong reasoning'' cases. This directly reflects the advantage of sentence-local credit assignment: an accidentally correct final prediction cannot cause every preceding statement to be reinforced. The result also agrees with the calibration analysis above, where Video-SR1's perceived reasoning quality more closely tracks true task success.
+<br><br>
+Finally, we evaluate whether the reasoning actually depends on temporal order by shuffling the video frames for 50 randomly selected examples and checking whether the model remains inappropriately unchanged. As shown in the right panel of part (a) below, Video-SR1 is temporally insensitive on only about 7/50 examples, substantially fewer than all baselines. This provides complementary evidence that the temporal-sensitivity reward is changing what information the model relies on: the model is less likely to produce the same reasoning when the event order in the visual input has been disrupted.
+<br><br>
+Together, these analyses support two complementary mechanisms behind Video-SR1's gains. The temporal-sensitivity reward encourages the policy to rely on the video's ordered spatiotemporal evidence, while the local self-rewards ensure that this temporally responsive reasoning remains accurate and grounded.               </p>
+            </div>
+            <div class="content has-text-centered">
+              <img
+                src="./static/images/res_fig4.png"
+                class="inline-figure-six"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+
+
+
+
+
+    
+
+
+    <div class="hr"></div>
+
+  </body>
 </html>
